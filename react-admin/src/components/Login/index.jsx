@@ -5,13 +5,17 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import IconFont from '../Icon/index'
 
 import { languageHandler } from '../../redux/actions/language'
-import { CHINESE, ENGLISH, JAPANESE, KOERAN } from '../../redux/constant'
+import { CHINESE, ENGLISH, JAPANESE, KOERAN,ADMIN,NORMAL } from '../../redux/constant'
 //引入connect用于连接UI组件与redux
+import {userHandle} from '../../redux/actions/authority'
 import { connect } from 'react-redux'
+
+import { withRouter } from 'react-router-dom'
 
 class LoginContent extends Component {
     render() {
         const { i18n } = this.props
+        console.log('user',this.props.user)
         const menu = (
             <Menu>
                 <Menu.Item>
@@ -82,7 +86,12 @@ class LoginContent extends Component {
     onFinish = (values) => {
         const { username, password } = values
         if ((username === 'admin' && password === 'admin') || (username === 'normal' && password === 'normal')) {
-            console.log('chenggong')
+
+            username === 'admin' ?  this.props.userHandle(ADMIN) :  this.props.userHandle(NORMAL)
+
+            this.props.history.push({
+                pathname: '/page'
+            });
         } else {
             message.error(this.props.i18n.enterError);
         }
@@ -116,6 +125,7 @@ class LoginContent extends Component {
 export default connect(
     state => ({
         i18n: state.i18n,
+        user:state.user
     }),
-    { languageHandler }
-)(LoginContent)
+    { languageHandler,userHandle }
+)(withRouter(LoginContent))

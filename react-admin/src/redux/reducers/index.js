@@ -8,8 +8,11 @@ import language from './language'
 //引入为Person组件服务的reducer
 // import persons from './person'
 
+import user from './authority'
+
 //汇总所有的reducer变为一个总的reducer
 export default combineReducers({
     i18n:language,
+    user
     // persons
 })
