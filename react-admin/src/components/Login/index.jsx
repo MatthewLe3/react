@@ -4,13 +4,14 @@ import { Form, Input, Button, message, Menu, Dropdown } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import IconFont from '../Icon/index'
 
+import { languageHandler } from '../../redux/actions/language'
+import { CHINESE, ENGLISH, JAPANESE, KOERAN } from '../../redux/constant'
+//引入connect用于连接UI组件与redux
+import { connect } from 'react-redux'
 
-
-export default class LoginContent extends Component {
-
-
+class LoginContent extends Component {
     render() {
-
+        const { i18n } = this.props
         const menu = (
             <Menu>
                 <Menu.Item>
@@ -31,7 +32,7 @@ export default class LoginContent extends Component {
         return (
             <div className={styles.content}>
                 <div className={styles.header}>
-                    <label>登录</label>
+                    <label>{i18n.login}</label>
                     <Dropdown overlay={menu} placement="bottomLeft" arrow>
                         <IconFont className={styles.translation} type="iconfanyiline" style={{ fontSize: '20px' }} />
                     </Dropdown>
@@ -40,38 +41,39 @@ export default class LoginContent extends Component {
                 <div className={styles.formContent}>
                     <Form
                         name="basic"
+                        ref={(c)=>{this.form=c}}
                         initialValues={{ remember: true }}
                         onFinish={this.onFinish}
                         onFinishFailed={this.onFinishFailed}
                     >
                         <Form.Item
                             name="username"
-                            rules={[{ required: true, message: '请输入用户名!' }]}
+                            rules={[{ required: true, message: i18n.enterUserName }]}
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder={i18n.userName} />
                         </Form.Item>
 
                         <Form.Item
                             name="password"
-                            rules={[{ required: true, message: '请输入密码!' }]}
+                            rules={[{ required: true, message: i18n.enterPassword }]}
                         >
                             <Input
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
-                                placeholder="Password"
+                                placeholder={i18n.password}
                             />
                         </Form.Item>
                         <div className={styles.enter}>
-                            <Button type="primary" htmlType="submit">登录</Button>
+                            <Button type="primary" htmlType="submit">{i18n.login}</Button>
                         </div>
                     </Form>
                 </div>
                 <div className={styles.tips}>
-                    <label>账号：admin </label>
-                    <label>密码：admin</label>
+                    <label>{i18n.account}：admin </label>
+                    <label>{i18n.password}：admin</label>
                     <br />
-                    <label>账号：normal </label>
-                    <label>密码：normal</label>
+                    <label>{i18n.account}：normal </label>
+                    <label>{i18n.password}：normal</label>
                 </div>
             </div>
         )
@@ -82,7 +84,7 @@ export default class LoginContent extends Component {
         if ((username === 'admin' && password === 'admin') || (username === 'normal' && password === 'normal')) {
             console.log('chenggong')
         } else {
-            message.error('用户名或密码提交错误，请重试。');
+            message.error(this.props.i18n.enterError);
         }
     };
 
@@ -91,21 +93,29 @@ export default class LoginContent extends Component {
     };
 
     changeLanguage = (value) => {
+        this.form.resetFields()
         switch (value) {
             case 'Chinese':
-                console.log('1')
+                this.props.languageHandler(CHINESE)
                 break;
             case 'English':
-                console.log('2')
+                this.props.languageHandler(ENGLISH)
                 break;
             case 'Japanese':
-                console.log('3')
+                this.props.languageHandler(JAPANESE)
                 break;
             case 'Korean':
-                console.log('4')
+                this.props.languageHandler(KOERAN)
                 break;
             default:
-                console.log('1')
+                this.props.languageHandler(CHINESE)
         }
     }
 }
+
+export default connect(
+    state => ({
+        i18n: state.i18n,
+    }),
+    { languageHandler }
+)(LoginContent)
