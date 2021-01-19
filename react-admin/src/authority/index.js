@@ -1,9 +1,9 @@
 // 主页
-import Home from '../pages/Content/Home'
+import Home from '../pages/Content/Home/index'
 // 动画
-import Motion from '../pages/Content/Motion'
+import Motion from '../pages/Content/Motion/index'
 // 人员管理
-import PersonManage from '../pages/Content/PersonManage'
+import PersonManage from '../pages/Content/PersonManage/index'
 
 // 错误页面
 import Error from '../pages/Content/error/index'

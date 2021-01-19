@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, createContext ,useEffect,useCallback} from 'react'
 import { Layout } from 'antd';
 import styles from './index.less'
 
@@ -10,6 +10,9 @@ import IconFont from '../../components/Icon/index'
 
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom'
 
+import MyHeader from './Header'
+
+export const ChildrenContext = createContext();
 
 const { SubMenu } = Menu;
 
@@ -17,40 +20,59 @@ const { SubMenu } = Menu;
 const { Header, Sider, Content } = Layout;
 
 function Container(props) {
+    const [foldStatus, setFoldStatus] = useState(false)
+    const [size,setSize] = useState({
+            width:window.innerWidth,
+            hieght:window.innerHeight
+    })
 
-    const [selectedMenu, setSelectedMenu] = useState([]);
-    const { pathname } = props.history.location
+    const onResize = useCallback(()=>{
+        setSize({
+            width:window.innerWidth,
+            hieght:window.innerHeight
+        })
+    },[])
 
-    useEffect(() => {
-        // 设置默认选中与展开项
-        const setMenuSelected = (pathname, authorityRouter) => {
-            let pathArr = []
-
-            function getPathArr(pathname, authorityRouter) {
-                authorityRouter.forEach(val => {
-                    if (pathname.includes(val.path)) {
-                        pathArr = [...pathArr, val.path]
-
-                        if (val.children) {
-                            getPathArr(pathname, val.children)
-                        }
-                    }
-                });
+     useEffect(() => {
+        window.addEventListener('resize',onResize);
+        setFoldStatus(size.width <= 800 ? true : false)
+        return (()=>{
+                window.removeEventListener('resize',onResize)
             }
-            getPathArr(pathname, authorityRouter)
-            return pathArr
-        }
-        let arr = []
-        arr = setMenuSelected(pathname, authorityRouter)
-        setSelectedMenu(arr)
-    }, [pathname])
+        )
+    }, [size,onResize])
 
+    let selectedMenu = []
+    const { pathname } = props.history.location
+    // 设置默认选中与展开项
+    const setMenuSelected = (pathname, authorityRouter) => {
+        let pathArr = []
+
+        function getPathArr(pathname, authorityRouter) {
+            authorityRouter.forEach(val => {
+                if (pathname.includes(val.path)) {
+                    pathArr = [...pathArr, val.path]
+
+                    if (val.children) {
+                        getPathArr(pathname, val.children)
+                    }
+                }
+            });
+        }
+        getPathArr(pathname, authorityRouter)
+
+        return pathArr
+    }
+    let arr = []
+    arr = setMenuSelected(pathname, authorityRouter)
+    selectedMenu = arr
 
 
     const { user } = props
     const userName = user.userName
 
     const handleClick = e => {
+        console.log('e', e)
         props.history.push({
             pathname: e.key
         });
@@ -66,7 +88,9 @@ function Container(props) {
                                 {handleMenu(value.children, authority)}
                             </SubMenu>
                             :
-                            <Menu.Item key={value.path} icon={<IconFont type={value.icon} style={{ fontSize: '15px' }} />}>{value.label}</Menu.Item>
+                            <Menu.Item key={value.path} icon={<IconFont type={value.icon} style={{ fontSize: '15px' }} />}>
+                                <span>{value.label}</span>
+                            </Menu.Item>
                     )
                     :
                     null;
@@ -100,15 +124,20 @@ function Container(props) {
         return <Route key={value.path} path={value.path} component={value.component} />
     }
 
+    const setFoldStatuss = value => {
+        // console.log('value', value)
+        setFoldStatus(value)
+    }
+
     return (
         <>
             <Layout className={styles.content}>
-                <Sider className={styles.slider}>
+                <Sider className={styles.slider} collapsed={foldStatus}>
                     <Menu
                         onClick={handleClick}
-                        style={{ width: '100%' }}
-                        selectedKeys={selectedMenu}
-                        openKeys={selectedMenu}
+                        defaultOpenKeys={selectedMenu}
+                        defaultSelectedKeys={selectedMenu}
+                        // inlineCollapsed={foldStatus}
                         mode="inline"
                         theme="dark"
                     >
@@ -116,7 +145,11 @@ function Container(props) {
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header className={styles.header}>Header</Header>
+                    <Header className={styles.header}>
+                        <ChildrenContext.Provider value={foldStatus}>
+                            <MyHeader setFoldStatus={setFoldStatuss} />
+                        </ChildrenContext.Provider>
+                    </Header>
                     <Content>
                         {handleRoute(authorityRouter, userName)}
                     </Content>

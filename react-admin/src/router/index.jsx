@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Login from '../pages/Login/Login'
-import Content from '../pages/Content'
+import Content from '../pages/Content/index'
 
 
 export default class index extends Component {
