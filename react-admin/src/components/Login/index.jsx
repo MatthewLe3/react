@@ -90,7 +90,7 @@ class LoginContent extends Component {
             username === 'admin' ?  this.props.userHandle(ADMIN) :  this.props.userHandle(NORMAL)
 
             this.props.history.push({
-                pathname: '/page'
+                pathname: '/page/home'
             });
         } else {
             message.error(this.props.i18n.enterError);

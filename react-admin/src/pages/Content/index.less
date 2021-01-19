@@ -1,25 +1,68 @@
-.content{
+.content {
     height: 100%;
-    .header{
+
+    .header {
         background-color: #fff;
         padding: 0;
-        .header_content{
+
+        .header_content {
             display: flex;
         }
-        .fold{
-            
-        }
-        .full_screen{
 
+        .fold {
+            width: 60px;
+            flex: 1;
         }
-        .global{
 
+        .full_screen {
+            position: relative;
+            width: 40px;
+            .full_screen_icon {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 20px;
+                cursor: pointer;
+                transition: all 0.2s ease-in-out;
+                &:hover {
+                    font-size: 24px;
+                }
+            }
         }
-        .avatar{
 
+        .global {
+            position: relative;
+            width: 40px;
+            .translation{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 20px;
+                cursor: pointer;
+            }
+        }
+
+        .avatar {
+            position: relative;
+            width: 60px;
+            text-align: center;
+            cursor: pointer;
+            .img{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                cursor: pointer;
+            }
         }
     }
-    .slider{
+
+    .container{
+        background-color: #F3F7FA;
+    }
+    .slider {
         background-color: #001628;
     }
 }

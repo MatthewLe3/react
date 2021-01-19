@@ -67,7 +67,6 @@ function Container(props) {
     arr = setMenuSelected(pathname, authorityRouter)
     selectedMenu = arr
 
-
     const { user } = props
     const userName = user.userName
 
@@ -150,7 +149,7 @@ function Container(props) {
                             <MyHeader setFoldStatus={setFoldStatuss} />
                         </ChildrenContext.Provider>
                     </Header>
-                    <Content>
+                    <Content className={styles.container}>
                         {handleRoute(authorityRouter, userName)}
                     </Content>
                 </Layout>

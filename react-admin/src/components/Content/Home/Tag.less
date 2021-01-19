@@ -1,0 +1,41 @@
+.tag{
+    .tag_content{
+        background-color: #fff;
+        box-shadow: 0 5px 20px rgba(185, 185, 185, 0.5);
+        height: 80px;
+        display: flex;
+        position: relative;
+        .icon_content{
+            width: 70px;
+            height: 70px;
+            position: relative;
+            border-radius: 4px;
+            top: -12px;
+            left: 16px;
+            .translation{
+                color:#fff;
+                font-size: 36px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+        }
+        .descripte{
+            width: calc(100% - 70px);
+            padding-left: 32px;
+            h2{
+                overflow:hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+            }
+            h5{
+                color: #666;
+                overflow:hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+            }
+        }
+        
+    }
+}
