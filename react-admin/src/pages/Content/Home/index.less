@@ -61,8 +61,22 @@
             padding: 12px;
             width: 55%;
             >div {
+                height: 100%;
                 background-color: #fff;
                 box-shadow: 0 5px 20px rgba(185, 185, 185, 0.5);
+                header{
+                    height: 45px;
+                    padding: 6px 8px;
+                    border-bottom: 1px dashed #f0f0f0;
+                    label{
+                        font-size: 18px;
+                        color: #666;
+                        
+                    }
+                }
+                >div{
+                    height: calc(100% - 45px);
+                }
             }
         }
     }

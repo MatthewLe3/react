@@ -4,6 +4,7 @@
     >div {
         border: 1px solid #f0f0f0;
         padding: 8px;
+
         >div {
             height: auto;
 
@@ -19,5 +20,39 @@
                 color: #666;
             }
         }
+
+        .avatar {
+            text-align: center;
+            margin: 40px auto;
+
+            label {
+                font-size: 12px;
+
+                &.email {
+                    color: #0f85d4;
+                }
+
+                &.descripte {
+                    color: #666;
+                    width: 80%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-inline-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    margin-top: 15px;
+                    text-align: left;
+                }
+            }
+        }
+
+        .btnGroup {
+            margin: 15px auto;
+
+            button {
+                width: 50%;
+            }
+        }
+
     }
 }

@@ -3,11 +3,7 @@ import styles from './Tag.less'
 import IconFont from '../../Icon/index'
 
 export default function Tag(props) {
-    console.log('props', props)
-
     const { color, num, label, icon } = props.info
-
-
     return (
         <div className={styles.tag}>
             <div className={styles.tag_content}>
