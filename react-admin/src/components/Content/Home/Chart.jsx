@@ -51,22 +51,23 @@ export default function Chart(props) {
 
 
     const [width, setWidth] = useState(0)
-    const containerWidth = useCallback(() => {
-        setTimeout(() => {
-            setWidth(document.getElementById('myChart').getBoundingClientRect().width)
-            let myChart = echarts.init(document.getElementById('myChart'))
-            myChart.resize()
-        }, 500)
-    }, [setWidth])
-
     useEffect(() => {
+        let time
         setTimeout(() => {
             drawChart()
-            containerWidth()
-        }, 10);
-    }, [props, drawChart, containerWidth, width])
+            time = setTimeout(() => {
+                if (document.getElementById('myChart')) {
+                    setWidth(document.getElementById('myChart').getBoundingClientRect().width)
+                    let myChart = echarts.init(document.getElementById('myChart'))
+                    myChart.resize()
+                }
 
-
+            }, 1000)
+        }, 100);
+        return (() => {
+            clearTimeout(time)
+        })
+    }, [props, drawChart, setWidth, width])
 
     return (
         <div id={'myChart'} style={{ height: '100%', width: '100%' }}></div>
