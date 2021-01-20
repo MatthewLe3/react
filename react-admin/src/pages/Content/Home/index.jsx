@@ -4,6 +4,8 @@ import styles from './index.less'
 import Tag from '../../../components/Content/Home/Tag'
 import Applications from '../../../components/Content/Home/Applications'
 import Chart from '../../../components/Content/Home/Chart'
+import PersonTable from '../../../components/Content/Home/PersonTable'
+
 export default function Home() {
 
     const tagData = [
@@ -23,19 +25,55 @@ export default function Home() {
         xAxisData: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         legendData: ['Cycle Time', 'Account', 'Inventory', 'Stock'],
         data: {
-            'Cycle Time': [32, 12, 54, 53, 23 ],
+            'Cycle Time': [32, 12, 54, 53, 23],
             'Account': [43, 32, 24, 65, 45],
             'Inventory': [43, 23, 34, 32, 64],
             'Stock': [56, 45, 34, 23, 23]
-            // 'Monday':[31,53],
-            // 'Tuesday':[],
-            // 'Wednesday':[],
-            // 'Thursday':[],
-            // 'Friday':[],
-            // 'Saturday':[],
-            // 'Sunday':[],
         }
     }
+
+    const tableData = [
+        {
+            id:1,
+            name:'张而非',
+            email:'121234242@21.com',
+            phone:'14235437653',
+            age:42,
+            sex:1
+        },
+        {
+            id:2,
+            name:'何其取',
+            email:'fafdsa@2sa.com',
+            phone:'456323445',
+            age:32,
+            sex:1
+        },
+        {
+            id:3,
+            name:'高乐天',
+            email:'affasfaf@21.com',
+            phone:'564323',
+            age:25,
+            sex:0
+        },
+        {
+            id:4,
+            name:'普萨达',
+            email:'1313243@21.com',
+            phone:'5342',
+            age:30,
+            sex:1
+        },
+        {
+            id:5,
+            name:'青清新',
+            email:'feffd@21.com',
+            phone:'14235437653',
+            age:32,
+            sex:0
+        },
+    ]
 
     return (
         <div className={styles.home}>
@@ -75,6 +113,11 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* 主页表格 */}
+            <div className={styles.person_table}>
+                <PersonTable tableData={tableData} />
             </div>
         </div>
     )
