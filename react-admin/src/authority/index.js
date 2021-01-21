@@ -1,5 +1,8 @@
 // 主页
 import Home from '../pages/Content/Home/index'
+
+// 按钮
+import MyButton from '../pages/Content/MyButton/index'
 // 动画
 import Motion from '../pages/Content/Motion/index'
 // 人员管理
@@ -12,10 +15,10 @@ import NotFound from '../pages/Content/error/NotFound'
 import ServeError from '../pages/Content/error/ServeError'
 
 // 嵌套路由
-import Nest from '../pages/Content/nest/index'
-import NestFirst from '../pages/Content/nest/NestFirst'
-import NestIndex from '../pages/Content/nest/nest02/index'
-import NestSecond from '../pages/Content/nest/nest02/NestSecond'
+import Nest from '../pages/Content/Nest/index'
+import NestFirst from '../pages/Content/Nest/NestFirst'
+import NestIndex from '../pages/Content/Nest/nest02/index'
+import NestSecond from '../pages/Content/Nest/nest02/NestSecond'
 
 const authority = [
     {
@@ -24,6 +27,13 @@ const authority = [
         component: Home,
         label: '主页',
         icon: 'iconzhuye'
+    },
+    {
+        path: '/page/my_button',
+        role: ['admin', 'normal'],
+        component: MyButton,
+        label: '按钮',
+        icon: 'iconanniu'
     },
     {
         path: '/page/motion',
@@ -44,7 +54,7 @@ const authority = [
         role: ['admin', 'normal'],
         label: '异常页',
         icon: 'iconyichangshangbao_o',
-        component:Error,
+        component: Error,
         children: [
             {
                 path: '/page/error/403',
@@ -74,7 +84,7 @@ const authority = [
         role: ['admin', 'normal'],
         label: '嵌套路由',
         icon: 'iconlujingguanli',
-        component:Nest,
+        component: Nest,
         children: [
             {
                 path: '/page/nest_router/nestFirst',
@@ -88,14 +98,14 @@ const authority = [
                 role: ['admin', 'normal'],
                 label: 'NestSecond',
                 icon: 'iconIcon_lujinghuizhi',
-                component:NestIndex,
+                component: NestIndex,
                 children: [
                     {
                         path: '/page/nest_router/nest_second/content',
                         role: ['admin', 'normal'],
                         label: 'NestSecond',
                         icon: 'iconIcon_lujinghuizhi',
-                        component:NestSecond
+                        component: NestSecond
                     }
                 ]
             }

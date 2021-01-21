@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styles from './index.less'
-import { Dropdown, Menu, Avatar } from 'antd'
+import { Dropdown, Menu, Avatar, Badge } from 'antd'
 import IconFont from '../../components/Icon/index'
+import { MailOutlined, BellOutlined } from '@ant-design/icons';
 
 import { ChildrenContext } from './index'
 import { MenuFoldOutlined, MenuUnfoldOutlined, FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons';
@@ -110,6 +111,18 @@ function Header(props) {
                 <Dropdown overlay={menu} placement="bottomCenter" arrow>
                     <IconFont className={styles.translation} type="iconfanyiline" />
                 </Dropdown>
+            </div>
+
+            <div className={styles.email}>
+                <Badge className={styles.email_info} style={{ backgroundColor: '#f3bf41' }} count={4}>
+                    <MailOutlined style={{ fontSize: '20px' }} />
+                </Badge>
+            </div>
+
+            <div className={styles.notice}>
+                <Badge className={styles.notice_info} count={5}>
+                    <BellOutlined style={{ fontSize: '20px' }} />
+                </Badge>
             </div>
 
             <div className={styles.avatar}>
