@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
+import EditTable from '../../../components/Content/PersonManage/index'
 
 export default class PersonManage extends Component {
+    
     render() {
-        return (
-            <div>
-                人员管理
-            </div>
-        )
+        return <EditTable />
     }
 }
