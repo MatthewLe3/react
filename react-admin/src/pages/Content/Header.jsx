@@ -7,6 +7,7 @@ import { MailOutlined, BellOutlined } from '@ant-design/icons';
 import { ChildrenContext } from './index'
 import { MenuFoldOutlined, MenuUnfoldOutlined, FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom'
+import avatarPic from '../../assets/img/avatar.png'
 
 function Header(props) {
     const { setFoldStatus } = props
@@ -127,7 +128,7 @@ function Header(props) {
 
             <div className={styles.avatar}>
                 <Dropdown overlay={userMenu} placement="bottomCenter" arrow>
-                    <Avatar src="../../assets/img/avatar.png" />
+                    <Avatar src={avatarPic} />
                 </Dropdown>
             </div>
         </div>
