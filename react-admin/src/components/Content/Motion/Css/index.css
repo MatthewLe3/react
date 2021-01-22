@@ -1,0 +1,66 @@
+.code_box {
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    background: #1890ff;
+
+}
+
+.fade-enter {
+    opacity: 0!important;
+    animation-duration: .5s!important;
+    animation-fill-mode: both!important;
+    animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2)!important;
+    animation-play-state: paused!important;
+}
+
+.fade-appear {
+    opacity: 0!important;
+    animation-duration: .5s!important;
+    animation-fill-mode: both!important;
+    animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2)!important;
+    animation-play-state: paused!important;
+}
+
+.fade-leave {
+    animation-duration: .5s!important;
+    animation-fill-mode: both!important;
+    animation-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2)!important;
+    animation-play-state: paused!important;
+}
+
+.fade-enter.fade-enter-active {
+    animation-name: fadeIn!important;
+    animation-play-state: running!important;
+}
+
+.fade-appear.fade-appear-active {
+    animation-name: fadeIn!important;
+    animation-play-state: running!important;
+}
+
+.fade-leave.fade-leave-active {
+    animation-name: fadeOut!important;
+    animation-play-state: running!important;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

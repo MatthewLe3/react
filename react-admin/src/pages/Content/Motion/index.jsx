@@ -2,12 +2,12 @@ import React from 'react'
 import { Tabs } from 'antd'
 import styles from './index.less'
 
-import Single from '../../../components/Content/Motion/Single'
-import Css from '../../../components/Content/Motion/Css'
-import Extra from '../../../components/Content/Motion/Extra'
-import Font from '../../../components/Content/Motion/Font'
-import Scroll from '../../../components/Content/Motion/Scroll'
-import Banner from '../../../components/Content/Motion/Banner'
+import Single from '../../../components/Content/Motion/Single/index'
+import Css from '../../../components/Content/Motion/Css/index'
+import Extra from '../../../components/Content/Motion/Extra/index'
+import Font from '../../../components/Content/Motion/Font/index'
+import Scroll from '../../../components/Content/Motion/Scroll/index'
+import Banner from '../../../components/Content/Motion/Banner/index'
 
 export default function Motion() {
 
