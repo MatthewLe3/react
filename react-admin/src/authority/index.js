@@ -20,6 +20,11 @@ import NestFirst from '../pages/Content/Nest/NestFirst'
 import NestIndex from '../pages/Content/Nest/nest02/index'
 import NestSecond from '../pages/Content/Nest/nest02/NestSecond'
 
+// 富文本编辑器
+import Editor from '../pages/Content/Editor/index'
+import WangEditor from '../pages/Content/Editor/WangEditor'
+import UEditor from '../pages/Content/Editor/UEditor'
+
 const authority = [
     {
         path: '/page/home',
@@ -110,7 +115,30 @@ const authority = [
                 ]
             }
         ]
-    }
+    },
+    {
+        path: '/page/editor',
+        role: ['admin','normal'],
+        component: Editor,
+        label: '富文本编辑器',
+        icon: 'iconfuwenbenkuang',
+        children:[
+            {
+                path: '/page/editor/wang_editor',
+                role: ['admin','normal'],
+                component: WangEditor,
+                label: 'WangEditor',
+                icon: 'iconfuwenben',
+            },
+            {
+                path: '/page/editor/u_editor',
+                role: ['admin','normal'],
+                component: UEditor,
+                label: '百度富文本编辑器',
+                icon: 'iconfuwenben',
+            }
+        ]
+    },
 ]
 
 export default authority
