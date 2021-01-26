@@ -22,8 +22,8 @@ import NestSecond from '../pages/Content/Nest/nest02/NestSecond'
 
 // 富文本编辑器
 import Editor from '../pages/Content/Editor/index'
-import WangEditor from '../pages/Content/Editor/WangEditor'
-import UEditor from '../pages/Content/Editor/UEditor'
+import WangEditor from '../components/Content/Editor/WangEditor'
+import Tinymec from '../components/Content/Editor/Tinymec'
 
 const authority = [
     {
@@ -131,10 +131,10 @@ const authority = [
                 icon: 'iconfuwenben',
             },
             {
-                path: '/page/editor/u_editor',
+                path: '/page/editor/tinymec',
                 role: ['admin','normal'],
-                component: UEditor,
-                label: '百度富文本编辑器',
+                component: Tinymec,
+                label: 'Tinymec',
                 icon: 'iconfuwenben',
             }
         ]
