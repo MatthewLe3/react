@@ -5,14 +5,17 @@ import { message } from 'antd'
 let service = axios.create();
 
 // 环境的切换
-if (process.env.NODE_ENV === 'development') {
-    service.defaults.baseURL = '/apis';
-} else if (process.env.NODE_ENV === 'mock') {
+if(process.env.REACT_APP_MOCK_ENV){
     service.defaults.baseURL = '/mock';
-} else if (process.env.NODE_ENV === 'production') {
-    service.defaults.baseURL = 'http://www.xxx.com/';
+}else{
+    if (process.env.NODE_ENV === 'development') {
+        service.defaults.baseURL = '/apis';
+    } else if (process.env.NODE_ENV === 'production') {
+        service.defaults.baseURL = 'http://www.xxx.com/';
+    }
 }
-// message.success(service.defaults.baseURL )
+
+message.success(service.defaults.baseURL )
 export const baseUrl = service.defaults.baseURL
 
 // 请求超时时间
