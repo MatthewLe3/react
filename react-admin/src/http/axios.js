@@ -11,11 +11,11 @@ if(process.env.REACT_APP_MOCK_ENV){
     if (process.env.NODE_ENV === 'development') {
         service.defaults.baseURL = '/apis';
     } else if (process.env.NODE_ENV === 'production') {
-        service.defaults.baseURL = 'http://www.xxx.com/';
+        service.defaults.baseURL = '/production';
     }
 }
 
-message.success(service.defaults.baseURL )
+console.log('baseUrl',service.defaults.baseURL )
 export const baseUrl = service.defaults.baseURL
 
 // 请求超时时间
@@ -41,13 +41,13 @@ service.interceptors.request.use(config => {
 
 // 响应拦截器
 service.interceptors.response.use(response => {
-    if (Number(response.code) === 200) {
+    if (Number(response.data.code) === 200) {
         return Promise.resolve(response);
     } else {
         return Promise.reject(response);
     }
 }, error => {
-    if (error.response.status) {
+    if (error.response && error.response.status) {
         const code = Number(error.response.status)
         switch (code) {
             case 401:
@@ -63,19 +63,23 @@ service.interceptors.response.use(response => {
                 message.error(error.response.data.message)
         }
         return Promise.reject(error.response);
+    }else{
+        return Promise.reject(error.response);
     }
 })
 
-export function fetchData(url, method, params = {}) {
+export async function fetchData(url, method, params = {}) {
     // 首先判断是get请求还是post请求
     let data = method.toLocaleLowerCase() === 'get' ? 'params' : 'data';
-    return service({
-        method,
-        url,
-        [data]: data === 'params' ? params :  QS.stringify(params)// 差异点在于data的值
-    }).then((res) => {
-        return Promise.resolve(res.data);
-    }).catch((err) => {
-        return Promise.reject(err);
+    return await new Promise((resolve,reject)=>{
+        service({
+            method,
+            url,
+            [data]: data === 'params' ? params :  QS.stringify(params)// 差异点在于data的值
+        }).then((res) => {
+            resolve(res.data);
+        }).catch((err) => {
+            reject(err);
+        })
     })
 }

@@ -1,25 +1,35 @@
-import React,{useEffect} from 'react'
+import React, { useState,useEffect } from 'react'
 import styles from './index.less'
 
 import Tag from '../../../components/Content/Home/Tag'
 import Applications from '../../../components/Content/Home/Applications'
 import Chart from '../../../components/Content/Home/Chart'
 import PersonTable from '../../../components/Content/Home/PersonTable'
-import {getHomeData} from '../../../http/api'
+import { getModuleData } from '../../../http/api'
+// import { func } from 'prop-types'
 
 export default function Home() {
 
+    const [tagData, setTagData] = useState([
+        { color: '#f55587', num: 0, label: 'Orders to ship', icon: 'iconpie' },
+        { color: '#F3BF41', num: 0, label: 'Overdue Shipments', icon: 'iconicon--' },
+        { color: '#4193D3', num: 0, label: 'Local Source Product', icon: 'iconzhifeiji' },
+        { color: '#61CCBD', num: 0, label: 'Third Party Spare', icon: 'icontrophy' }
+    ])
+
     useEffect(() => {
-        console.log(getHomeData(),'sdsdd')
 
+        const getData = async () => {
+            const { data } = await getModuleData()
+            setTagData([
+                { color: '#f55587', num: data.ship, label: 'Orders to ship', icon: 'iconpie' },
+                { color: '#F3BF41', num: data.shipments, label: 'Overdue Shipments', icon: 'iconicon--' },
+                { color: '#4193D3', num: data.product, label: 'Local Source Product', icon: 'iconzhifeiji' },
+                { color: '#61CCBD', num:data.spare, label: 'Third Party Spare', icon: 'icontrophy' }
+            ])
+        }
+        getData()
     }, [])
-
-    const tagData = [
-        { color: '#f55587', num: 106, label: 'Orders to ship', icon: 'iconpie' },
-        { color: '#F3BF41', num: 20, label: 'Overdue Shipments', icon: 'iconicon--' },
-        { color: '#4193D3', num: 16, label: 'Local Source Product', icon: 'iconzhifeiji' },
-        { color: '#61CCBD', num: 223, label: 'Third Party Spare', icon: 'icontrophy' }
-    ]
 
     const insData = [
         { title: '19号加班情况汇报', time: '2021-01-19', person: 'Musk', email: '1111111@163.com', avatar: '', descripte: '今日晚项目上线，需加班，对相关情况进行汇报。' },
@@ -40,44 +50,44 @@ export default function Home() {
 
     const tableData = [
         {
-            id:1,
-            name:'张而非',
-            email:'121234242@21.com',
-            phone:'14235437653',
-            age:42,
-            sex:1
+            id: 1,
+            name: '张而非',
+            email: '121234242@21.com',
+            phone: '14235437653',
+            age: 42,
+            sex: 1
         },
         {
-            id:2,
-            name:'何其取',
-            email:'fafdsa@2sa.com',
-            phone:'456323445',
-            age:32,
-            sex:1
+            id: 2,
+            name: '何其取',
+            email: 'fafdsa@2sa.com',
+            phone: '456323445',
+            age: 32,
+            sex: 1
         },
         {
-            id:3,
-            name:'高乐天',
-            email:'affasfaf@21.com',
-            phone:'564323',
-            age:25,
-            sex:0
+            id: 3,
+            name: '高乐天',
+            email: 'affasfaf@21.com',
+            phone: '564323',
+            age: 25,
+            sex: 0
         },
         {
-            id:4,
-            name:'普萨达',
-            email:'1313243@21.com',
-            phone:'5342',
-            age:30,
-            sex:1
+            id: 4,
+            name: '普萨达',
+            email: '1313243@21.com',
+            phone: '5342',
+            age: 30,
+            sex: 1
         },
         {
-            id:5,
-            name:'青清新',
-            email:'feffd@21.com',
-            phone:'14235437653',
-            age:32,
-            sex:0
+            id: 5,
+            name: '青清新',
+            email: 'feffd@21.com',
+            phone: '14235437653',
+            age: 32,
+            sex: 0
         },
     ]
 
