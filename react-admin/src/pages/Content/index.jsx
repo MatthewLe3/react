@@ -71,7 +71,6 @@ function Container(props) {
     const userName = user.userName
 
     const handleClick = e => {
-        console.log('e', e)
         props.history.push({
             pathname: e.key
         });

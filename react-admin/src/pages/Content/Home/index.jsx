@@ -1,12 +1,18 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import styles from './index.less'
 
 import Tag from '../../../components/Content/Home/Tag'
 import Applications from '../../../components/Content/Home/Applications'
 import Chart from '../../../components/Content/Home/Chart'
 import PersonTable from '../../../components/Content/Home/PersonTable'
+import {getHomeData} from '../../../http/api'
 
 export default function Home() {
+
+    useEffect(() => {
+        console.log(getHomeData(),'sdsdd')
+
+    }, [])
 
     const tagData = [
         { color: '#f55587', num: 106, label: 'Orders to ship', icon: 'iconpie' },
