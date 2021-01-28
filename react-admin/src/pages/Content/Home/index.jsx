@@ -1,12 +1,12 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.less'
+import { Empty } from 'antd'
 
 import Tag from '../../../components/Content/Home/Tag'
 import Applications from '../../../components/Content/Home/Applications'
 import Chart from '../../../components/Content/Home/Chart'
 import PersonTable from '../../../components/Content/Home/PersonTable'
-import { getModuleData } from '../../../http/api'
-// import { func } from 'prop-types'
+import { getModuleData, getApplicationData, getChartData,getTableData } from '../../../http/api'
 
 export default function Home() {
 
@@ -17,6 +17,15 @@ export default function Home() {
         { color: '#61CCBD', num: 0, label: 'Third Party Spare', icon: 'icontrophy' }
     ])
 
+    const [insData, setInsData] = useState([])
+
+    const [color, setColor] = useState([])
+    const [xAxisData, setXAxisData] = useState([])
+    const [legendData, setLegendData] = useState([])
+    const [chartData, setChartData] = useState({})
+
+    const [tableData, setTableData] = useState([])
+
     useEffect(() => {
 
         const getData = async () => {
@@ -25,71 +34,25 @@ export default function Home() {
                 { color: '#f55587', num: data.ship, label: 'Orders to ship', icon: 'iconpie' },
                 { color: '#F3BF41', num: data.shipments, label: 'Overdue Shipments', icon: 'iconicon--' },
                 { color: '#4193D3', num: data.product, label: 'Local Source Product', icon: 'iconzhifeiji' },
-                { color: '#61CCBD', num:data.spare, label: 'Third Party Spare', icon: 'icontrophy' }
+                { color: '#61CCBD', num: data.spare, label: 'Third Party Spare', icon: 'icontrophy' }
             ])
+
+            let application = await getApplicationData()
+            let applicationData = application.data
+            setInsData(applicationData)
+
+            let curChartData = await getChartData()
+            const { color, xAxisData, legendData, chartData } = curChartData.data
+            setColor(color)
+            setXAxisData(xAxisData)
+            setLegendData(legendData)
+            setChartData(chartData)
+
+            let curTableData = await getTableData()
+            setTableData(curTableData.data)
         }
         getData()
     }, [])
-
-    const insData = [
-        { title: '19号加班情况汇报', time: '2021-01-19', person: 'Musk', email: '1111111@163.com', avatar: '', descripte: '今日晚项目上线，需加班，对相关情况进行汇报。' },
-        { title: '23号调休申请', time: '2021-01-19', person: 'Tomas', email: '22223321@163.com', avatar: '', descripte: '本人想要于23号进行调休，希望予以批准。' },
-    ]
-
-    const chartData = {
-        color: ['#f55587', '#F3BF41', '#4193D3', '#61CCBD',],
-        xAxisData: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        legendData: ['Cycle Time', 'Account', 'Inventory', 'Stock'],
-        data: {
-            'Cycle Time': [32, 12, 54, 53, 23],
-            'Account': [43, 32, 24, 65, 45],
-            'Inventory': [43, 23, 34, 32, 64],
-            'Stock': [56, 45, 34, 23, 23]
-        }
-    }
-
-    const tableData = [
-        {
-            id: 1,
-            name: '张而非',
-            email: '121234242@21.com',
-            phone: '14235437653',
-            age: 42,
-            sex: 1
-        },
-        {
-            id: 2,
-            name: '何其取',
-            email: 'fafdsa@2sa.com',
-            phone: '456323445',
-            age: 32,
-            sex: 1
-        },
-        {
-            id: 3,
-            name: '高乐天',
-            email: 'affasfaf@21.com',
-            phone: '564323',
-            age: 25,
-            sex: 0
-        },
-        {
-            id: 4,
-            name: '普萨达',
-            email: '1313243@21.com',
-            phone: '5342',
-            age: 30,
-            sex: 1
-        },
-        {
-            id: 5,
-            name: '青清新',
-            email: 'feffd@21.com',
-            phone: '14235437653',
-            age: 32,
-            sex: 0
-        },
-    ]
 
     return (
         <div className={styles.home}>
@@ -110,12 +73,14 @@ export default function Home() {
                             <label>申请表信息</label>
                             <label className={styles.new}>NEW</label>
                         </header>
-                        <div>
-                            {insData.map((val, index) => {
-                                return (
-                                    <Applications key={index} info={val} />
-                                )
-                            })}
+                        <div style={{ minHeight: '411px' }}>
+                            {
+                                insData.length > 0 ? insData.map((val, index) => {
+                                    return (
+                                        <Applications key={index} info={val} />
+                                    )
+                                }) : <Empty />
+                            }
                         </div>
                     </div>
                 </div>
@@ -125,7 +90,12 @@ export default function Home() {
                             <label>数值信息统计概览</label>
                         </header>
                         <div>
-                            <Chart chartData={chartData} />
+                            <Chart chartData={{
+                                color,
+                                xAxisData,
+                                legendData,
+                                data: chartData
+                            }} />
                         </div>
                     </div>
                 </div>
