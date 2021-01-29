@@ -17,3 +17,8 @@ export const getChartData = async () => {
 export const getTableData = async () => {
     return await fetchData('/api/home/table', 'get')
 }
+
+// 人员管理
+export const getPersonManageData = async () => {
+    return await fetchData('/api/personManage/table', 'get')
+}

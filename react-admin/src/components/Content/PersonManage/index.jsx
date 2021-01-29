@@ -1,134 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Table, Tag, Space, Rate, Popconfirm, message, Select,Cascader,Input,DatePicker } from 'antd'
 import styles from './index.less'
 import moment from 'moment';
-
-
-
-
-const personData = [
-    {
-        id: 1,
-        name: '克莉丝汀',
-        sex: 0,
-        date: '2020-01-02',
-        address: '',
-        position: '高级前端工程师',
-        evaluation: 3,
-        authority: 1,
-        editable: false
-    },
-    {
-        id: 2,
-        name: '彭万里',
-        sex: 1,
-        date: '2019-11-23',
-        address: '',
-        position: '项目经理',
-        evaluation: 3.5,
-        authority: 1,
-        editable: false
-    },
-    {
-        id: 3,
-        name: '高大山',
-        sex: 1,
-        date: '2021-01-12',
-        address: '',
-        position:'中级测试工程师',
-        evaluation: 3.5,
-        authority: 1,
-        editable: false
-    },
-    {
-        id: 4,
-        name: '马宏宇',
-        sex: 1,
-        date: '2018-12-12',
-        address: '',
-        position: '前端架构工程师',
-        evaluation: 3,
-        authority: 1,
-        editable: false
-    },
-    {
-        id: 5,
-        name: '朱希亮',
-        sex: 0,
-        date: '2019-07-21',
-        address: '',
-        position: '资深后端工程师',
-        evaluation: 5,
-        authority: 1,
-        editable: false
-    },
-    {
-        id: 6,
-        name: '程孝先',
-        sex: 0,
-        date: '2020-01-01',
-        address: '',
-        position: '中级测试工程师',
-        evaluation: 4,
-        authority: 2,
-        editable: false
-    },
-    {
-        id: 7,
-        name: '章汉夫',
-        sex: 1,
-        date: '2018-03-02',
-        address: '',
-        position: '',
-        evaluation: 3.5,
-        authority: 1,
-        editable: false
-    },
-    {
-        id: 8,
-        name: '于学忠',
-        sex: 1,
-        date: '2019-11-12',
-        address: '',
-        position: '',
-        evaluation: 3.5,
-        authority: 1,
-        editable: false
-    },
-    {
-        id: 9,
-        name: '汤绍箕',
-        sex: 0,
-        date: '2018-09-30',
-        address: '',
-        position: '产品经理',
-        evaluation: 3.5,
-        authority: 1,
-        editable: false
-    },
-    {
-        id: 10,
-        name: '何光宗',
-        sex: 1,
-        date: '2019-11-02',
-        address: '',
-        position: '',
-        evaluation: 3,
-        authority: 2,
-        editable: false
-    },
-    {
-        id: 11,
-        name: '年广嗣',
-        sex: 1,
-        date: '2019-07-13',
-        address: '',
-        position: '',
-        evaluation: 3,
-        authority: 2,
-        editable: false
-    },
-]
+import {getPersonManageData} from '../../../http/api'
 
 const { Option } = Select;
 
@@ -155,6 +29,17 @@ const dateFormat = 'YYYY-MM-DD';
 
 
 export default function EditTable() {
+
+
+    useEffect(() => {
+        const getData = async () => {
+            let personManageData = await getPersonManageData()
+            const {data} = personManageData
+            setData(data)
+            console.log(data,'tableData')
+        }
+        getData()
+    }, [])
 
     const columns = [
         {
@@ -223,7 +108,7 @@ export default function EditTable() {
             title: '考核',
             dataIndex: 'evaluation',
             key: 'evaluation',
-            render: (text, record) => <Rate allowHalf disabled={!record.editable} defaultValue={text} />,
+        render: (text, record) => <Rate allowHalf disabled={!record.editable} defaultValue={text} />,
         },
         {
             title: 'Action',
@@ -251,7 +136,7 @@ export default function EditTable() {
 
 
 
-    const [data, setData] = useState(personData)
+    const [data, setData] = useState([])
 
     const delData = (text, record, index) => {
         let arr = JSON.parse(JSON.stringify(data))
