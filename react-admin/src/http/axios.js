@@ -15,7 +15,7 @@ if(process.env.REACT_APP_MOCK_ENV){
     }
 }
 
-console.log('baseUrl',service.defaults.baseURL )
+message.success(`当前baseUrl为：${service.defaults.baseURL}`)
 export const baseUrl = service.defaults.baseURL
 
 // 请求超时时间
