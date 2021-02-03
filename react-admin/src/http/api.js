@@ -1,5 +1,9 @@
 import { fetchData } from './axios'
 
+// 登录页
+export const getLogin = async (data) => {
+    return await fetchData('/api/egg/login', 'get',data)
+}
 
 // 主页
 export const getModuleData = async () => {

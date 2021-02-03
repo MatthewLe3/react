@@ -7,6 +7,7 @@ let service = axios.create();
 // 环境的切换
 if(process.env.REACT_APP_MOCK_ENV){
     service.defaults.baseURL = '/mock';
+    require('../mock/mock')
 }else{
     if (process.env.NODE_ENV === 'development') {
         service.defaults.baseURL = '/apis';

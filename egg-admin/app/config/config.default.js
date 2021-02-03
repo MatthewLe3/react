@@ -22,7 +22,13 @@ module.exports = appInfo => {
     mapping: {
       '.html': 'ejs'
     }
-  }
+  };
+
+  config.security =  {
+    csrf: {
+      enable: false,
+    }
+  },
 
   config.ejs = {}
 
