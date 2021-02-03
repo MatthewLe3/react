@@ -78,6 +78,7 @@ export async function fetchData(url, method, params = {}) {
             url,
             [data]: data === 'params' ? params :  QS.stringify(params)// 差异点在于data的值
         }).then((res) => {
+            console.log(res.data,'....')
             resolve(res.data);
         }).catch((err) => {
             reject(err);

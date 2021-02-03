@@ -1,0 +1,11 @@
+{
+    "chartData": {
+        "Account": [34, 84, 78, 93, 68],
+        "Cycle Time": [99, 73, 89, 72, 32],
+        "Inventory": [78, 52, 45, 26, 42],
+        "Stock": [16, 91, 49, 12, 93]
+    },
+    "color": ["#f55587", "#F3BF41", "#4193D3", "#61CCBD"],
+    "legendData": ["Cycle Time", "Account", "Inventory", "Stock"],
+    "xAxisData": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+}
