@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import * as echarts from 'echarts';
 
 export default function Chart(props) {
-    const { color, legendData, data, xAxisData } = props.chartData
+
+    const myBox = useRef()
+
     const drawChart = useCallback(
         () => {
+            var myChart = null
+            const { color, legendData, data, xAxisData } = props.chartData
             let series = []
             legendData.forEach(val => {
                 series.push({
@@ -18,7 +22,7 @@ export default function Chart(props) {
                     data: data[val]
                 })
             });
-            let myChart = echarts.init(document.getElementById('myChart'))
+
             let option = {
                 color: color,
                 tooltip: {
@@ -44,32 +48,27 @@ export default function Chart(props) {
                 ],
                 series: series
             };
+
+            echarts.dispose(myBox.current)
+            myChart = echarts.init(myBox.current)
+            setWidth(myBox.current.getBoundingClientRect().width)
             myChart.setOption(option)
+            myChart.resize()
+
         },
-        [color, legendData, data, xAxisData],
+        [props.chartData]
     )
 
-
     const [width, setWidth] = useState(0)
-    useEffect(() => {
-        let time
-        setTimeout(() => {
-            drawChart()
-            time = setTimeout(() => {
-                if (document.getElementById('myChart')) {
-                    setWidth(document.getElementById('myChart').getBoundingClientRect().width)
-                    let myChart = echarts.init(document.getElementById('myChart'))
-                    myChart.resize()
-                }
 
-            }, 1000)
-        }, 100);
-        return (() => {
-            clearTimeout(time)
-        })
-    }, [props, drawChart, setWidth, width])
+    useEffect(() => {
+        drawChart()
+        return () => {
+
+        }
+    }, [drawChart, width])
 
     return (
-        <div id={'myChart'} style={{ height: '100%', width: '100%' }}></div>
+        <div ref={myBox} style={{ height: '100%', width: '100%' }}></div>
     )
 }
