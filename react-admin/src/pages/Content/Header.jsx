@@ -82,6 +82,11 @@ function Header(props) {
         });
     }
 
+    const github = () => {
+        const w=window.open('about:blank');
+        w.location.href = 'https://github.com/vanliant/react'
+    }
+
     const menu = (
         <Menu>
             <Menu.Item>
@@ -101,7 +106,7 @@ function Header(props) {
 
     const userMenu = (
         <Menu>
-            <Menu.Item>
+            <Menu.Item onClick={github}>
                 <span>{i18n.center}</span>
             </Menu.Item>
             <Menu.Item onClick={Layout}>
