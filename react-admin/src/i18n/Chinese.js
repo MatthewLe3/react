@@ -5,7 +5,11 @@ const Chinese = {
     account: '账号',
     enterUserName: '请输入用户名',
     enterPassword: '请输入密码',
-    enterError: '用户名或密码提交错误，请重试。'
+    enterError: '用户名或密码提交错误，请重试。',
+
+    // header
+    center:'个人中心',
+    layout:'退出',
 
 }
 export default Chinese

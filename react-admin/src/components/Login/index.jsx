@@ -5,9 +5,9 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import IconFont from '../Icon/index'
 
 import { languageHandler } from '../../redux/actions/language'
-import { CHINESE, ENGLISH, JAPANESE, KOERAN,ADMIN,NORMAL } from '../../redux/constant'
+import { CHINESE, ENGLISH, JAPANESE, KOERAN, ADMIN, NORMAL } from '../../redux/constant'
 //引入connect用于连接UI组件与redux
-import {userHandle} from '../../redux/actions/authority'
+import { userHandle } from '../../redux/actions/authority'
 import { connect } from 'react-redux'
 
 import { withRouter } from 'react-router-dom'
@@ -15,7 +15,7 @@ import { withRouter } from 'react-router-dom'
 class LoginContent extends Component {
     render() {
         const { i18n } = this.props
-        console.log('user',this.props.user)
+        console.log('user', this.props.user)
         const menu = (
             <Menu>
                 <Menu.Item>
@@ -45,7 +45,7 @@ class LoginContent extends Component {
                 <div className={styles.formContent}>
                     <Form
                         name="basic"
-                        ref={(c)=>{this.form=c}}
+                        ref={(c) => { this.form = c }}
                         initialValues={{ remember: true }}
                         onFinish={this.onFinish}
                         onFinishFailed={this.onFinishFailed}
@@ -87,7 +87,7 @@ class LoginContent extends Component {
         const { username, password } = values
         if ((username === 'admin' && password === 'admin') || (username === 'normal' && password === 'normal')) {
 
-            username === 'admin' ?  this.props.userHandle(ADMIN) :  this.props.userHandle(NORMAL)
+            username === 'admin' ? this.props.userHandle(ADMIN) : this.props.userHandle(NORMAL)
 
             this.props.history.push({
                 pathname: '/page/home'
@@ -125,7 +125,7 @@ class LoginContent extends Component {
 export default connect(
     state => ({
         i18n: state.i18n,
-        user:state.user
+        user: state.user
     }),
-    { languageHandler,userHandle }
+    { languageHandler, userHandle }
 )(withRouter(LoginContent))

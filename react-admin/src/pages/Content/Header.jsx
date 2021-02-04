@@ -9,8 +9,13 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, FullscreenOutlined, FullscreenExi
 import { withRouter } from 'react-router-dom'
 import avatarPic from '../../assets/img/avatar.png'
 
+import { connect } from 'react-redux'
+import { CHINESE, ENGLISH, JAPANESE, KOERAN } from '../../redux/constant'
+import { languageHandler } from '../../redux/actions/language'
+
 function Header(props) {
     const { setFoldStatus } = props
+    const {i18n} = props
 
     const [fullState, setFullState] = useState(true)
     const handleFold = (value) => {
@@ -52,7 +57,22 @@ function Header(props) {
         }
     };
     const changeLanguage = language => {
-        console.log('lan', language)
+        switch (language) {
+            case 'Chinese':
+                props.languageHandler(CHINESE)
+                break;
+            case 'English':
+                props.languageHandler(ENGLISH)
+                break;
+            case 'Japanese':
+                props.languageHandler(JAPANESE)
+                break;
+            case 'Korean':
+                props.languageHandler(KOERAN)
+                break;
+            default:
+                props.languageHandler(CHINESE)
+        }
     }
 
 
@@ -82,10 +102,10 @@ function Header(props) {
     const userMenu = (
         <Menu>
             <Menu.Item>
-                <span>个人中心</span>
+                <span>{i18n.center}</span>
             </Menu.Item>
             <Menu.Item onClick={Layout}>
-                <span>退出</span>
+                <span>{i18n.layout}</span>
             </Menu.Item>
         </Menu>
     )
@@ -136,4 +156,10 @@ function Header(props) {
 }
 
 
-export default (withRouter(Header))
+export default connect(
+    state => ({
+        i18n: state.i18n,
+        user: state.user
+    }),
+    { languageHandler }
+)(withRouter(Header))
