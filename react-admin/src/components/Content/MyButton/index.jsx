@@ -32,7 +32,8 @@ export default function MyButton() {
 
     const removeIframe = useCallback(
         () => {
-            myIframe.current.removeChild(document.getElementById('btnIframe'))
+            if(myIframe.current)
+                myIframe.current.removeChild(document.getElementById('btnIframe'))
         },
         [],
     )
