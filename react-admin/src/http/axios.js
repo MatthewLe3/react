@@ -5,10 +5,10 @@ import { message } from 'antd'
 let service = axios.create();
 
 // 环境的切换
-if(process.env.REACT_APP_MOCK_ENV){
+if (process.env.REACT_APP_MOCK_ENV) {
     service.defaults.baseURL = '/mock';
     require('../mock/mock')
-}else{
+} else {
     if (process.env.NODE_ENV === 'development') {
         service.defaults.baseURL = '/apis';
     } else if (process.env.NODE_ENV === 'production') {
@@ -60,11 +60,14 @@ service.interceptors.response.use(response => {
             case 404:
                 message.error('链接不存在')
                 break;
+            case 500:
+                message.error('服务端错误')
+                break;
             default:
                 message.error(error.response.data.message)
         }
         return Promise.reject(error.response);
-    }else{
+    } else {
         return Promise.reject(error.response);
     }
 })
@@ -72,13 +75,13 @@ service.interceptors.response.use(response => {
 export async function fetchData(url, method, params = {}) {
     // 首先判断是get请求还是post请求
     let data = method.toLocaleLowerCase() === 'get' ? 'params' : 'data';
-    return await new Promise((resolve,reject)=>{
+    return await new Promise((resolve, reject) => {
         service({
             method,
             url,
-            [data]: data === 'params' ? params :  QS.stringify(params)// 差异点在于data的值
+            [data]: data === 'params' ? params : QS.stringify(params)// 差异点在于data的值
         }).then((res) => {
-            console.log(res.data,'....')
+            console.log(res.data, '....')
             resolve(res.data);
         }).catch((err) => {
             reject(err);

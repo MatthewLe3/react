@@ -5,7 +5,7 @@
  */
 module.exports = app => {
   const { router, controller,jwt } = app;
-  router.get('/', controller.home.index);
+  // router.get('/', controller.home.index);
 
   router.get('/test', controller.test.index);
 
@@ -14,7 +14,13 @@ module.exports = app => {
 
   // 登陆接口
   router.get('/api/egg/login', controller.login.login);
-  // 查询用户
-  // router.get('/keeping/api/v1/getUser', jwt, controller.user.selectUser);
 
+  // 主页接口
+  router.get('/api/home/module',controller.home.module)
+  router.get('/api/home/application',controller.home.application)
+  router.get('/api/home/chart',controller.home.chart)
+  router.get('/api/home/table',controller.home.table)
+
+  // 人员管理
+  router.get('/api/personManage/table',controller.personManage.personManage)
 };

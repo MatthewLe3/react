@@ -9,7 +9,7 @@ module.exports = app => {
             const userList = await ctx.service.login.login(query);
             // 返回值
             ctx.body = {
-                success: '登陆成功',
+                status: 'success',
                 code: 200,
                 data:userList
             };
