@@ -26,4 +26,6 @@ module.exports = app => {
 
   // 文件
   router.get('/api/file/list',controller.file.list)
+  router.get('/api/file/add',controller.file.add)
+  router.get('/api/file/del',controller.file.del)
 };

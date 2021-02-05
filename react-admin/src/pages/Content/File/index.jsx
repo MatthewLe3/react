@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Button, Input, Radio } from 'antd'
+import { Form, Button, Input, Radio, message } from 'antd'
 import styles from './index.less'
-import { getFile } from '../../../http/api'
+import { getFile, addFile, delFile } from '../../../http/api'
 import IconFont from '../../../components/Icon/index'
 
 const { TextArea } = Input;
@@ -28,8 +28,25 @@ export default function File() {
             },
         },
     };
-    const onFinish = (fieldsValue) => {
-        console.log('fieldsValue', fieldsValue)
+    const onFinish = async (fieldsValue) => {
+        let newFile = fieldsValue.fileName + '.' + fieldsValue.fileType
+
+        let num = 0
+        file.forEach(value => {
+            if (value.split('/')[value.split('/').length - 1] === newFile) {
+                num++
+            }
+        })
+
+        if (num > 0) {
+            message.error('请勿重复添加')
+            return
+        }
+        let data = await addFile(fieldsValue)
+        if (data.status === 'success') {
+            message.success('添加成功')
+            getFileList()
+        }
     }
 
     // 获取当前文件列表
@@ -51,6 +68,16 @@ export default function File() {
 
     }
 
+    const del = async (value) => {
+        let data = await delFile({
+            filename: value.split('/')[value.split('/').length - 1]
+        })
+        if (data.status === 'success') {
+            message.success('删除成功')
+            getFileList()
+        }
+    }
+
     useEffect(() => {
         getFileList()
     }, [])
@@ -70,14 +97,13 @@ export default function File() {
                 <Form.Item name="fileContent" label="文件内容" initialValue={''}>
                     <TextArea rows={4} placeholder={'请输入文件内容'} />
                 </Form.Item>
-                <Form.Item name="fileType" label="文件类型" initialValue={'txt'} rules={[
+                <Form.Item name="fileType" label="文件类型" initialValue={'doc'} rules={[
                     {
                         required: true,
                         message: '请输入文件名',
                     },
                 ]}>
                     <Radio.Group>
-                        <Radio value={'txt'}>txt</Radio>
                         <Radio value={'doc'}>doc</Radio>
                         <Radio value={'xlsx'}>xlsx</Radio>
                     </Radio.Group>
@@ -93,10 +119,11 @@ export default function File() {
             <ul>
                 {file.map((value, index) => {
                     return <li key={index}>
-                        <label>{index + 1}.</label>
+                        <label style={{ width: '50px', flex: 'unset' }}>{index + 1}.</label>
                         <IconFont className={styles.icon} type={'iconwenjian'} />
                         <label>{value.split('/')[value.split('/').length - 1]}</label>
                         <IconFont className={styles.download} onClick={() => download(value)} type={'iconxiazai'} />
+                        <IconFont className={styles.del} onClick={() => del(value)} type={'iconshanchu'} />
                     </li>
                 })}
 

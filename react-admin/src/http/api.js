@@ -32,6 +32,10 @@ export const getFile = async () => {
     return await fetchData('/api/file/list', 'get')
 }
 
-// export const downloadFile = async data => {
-//     return await fetchData('/api/file/download','get',data)
-// } 
+export const addFile = async data => {
+    return await fetchData('/api/file/add','get',data)
+} 
+
+export const delFile = async data => {
+    return await fetchData('/api/file/del','get',data)
+} 

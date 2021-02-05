@@ -4,7 +4,7 @@ const path = require('path');//解析需要遍历的文件夹
 const filePath = path.resolve('./app/public/file');
 
 const fileDisplay = async (filePath, list) => {
-    console.log('dddddd',filePath)
+    console.log('dddddd', filePath)
     //根据文件路径读取文件，返回文件列表
     var readDir = fs.readdirSync(filePath);
 
@@ -40,8 +40,26 @@ module.exports = app => {
             // 获取服务ip
             return {
                 fileList,
-                host:this.ctx.request.header.host
+                host: this.ctx.request.header.host
             }
+        }
+
+        async add(data) {
+            const { fileName, fileContent, fileType } = data
+            fs.writeFile('./app/public/file/' + fileName + '.' + fileType, fileContent, function (err) {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    return ''
+                }
+            });
+        }
+
+        async del(data) {
+            const { filename} = data
+            console.log(filename,'1')
+            fs.unlinkSync('./app/public/file/'+filename);
+            return ''
         }
     }
     return FileManageService;
