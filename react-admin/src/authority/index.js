@@ -25,6 +25,9 @@ import Editor from '../pages/Content/Editor/index'
 import WangEditor from '../components/Content/Editor/WangEditor'
 import Tinymec from '../components/Content/Editor/Tinymec'
 
+// 文件页面
+import File from '../pages/Content/File/index'
+
 const authority = [
     {
         path: '/page/home',
@@ -138,6 +141,13 @@ const authority = [
                 icon: 'iconfuwenben',
             }
         ]
+    },
+    {
+        path: '/page/file',
+        role: ['admin', 'normal'],
+        component: File,
+        label: '文件',
+        icon: 'iconwenjian'
     },
 ]
 
