@@ -146,7 +146,7 @@ const authority = [
         path: '/page/file',
         role: ['admin', 'normal'],
         component: File,
-        label: '文件',
+        label: '文件模块',
         icon: 'iconwenjian'
     },
 ]

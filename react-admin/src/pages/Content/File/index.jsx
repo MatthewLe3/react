@@ -84,7 +84,7 @@ export default function File() {
 
     return (
         <div className={styles.content}>
-            <h3>node新建文件并下载(mock环境下不可用)</h3>
+            <h3>node新建文件并下载(mock环境下不可用,开启egg-admin服务，react-admin yarn start 查看 )</h3>
             <Form {...formItemLayout} onFinish={onFinish}>
                 <Form.Item name="fileName" label="文件名" initialValue={''} rules={[
                     {
