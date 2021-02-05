@@ -26,3 +26,12 @@ export const getTableData = async () => {
 export const getPersonManageData = async () => {
     return await fetchData('/api/personManage/table', 'get')
 }
+
+// 文件
+export const getFile = async () => {
+    return await fetchData('/api/file/list', 'get')
+}
+
+// export const downloadFile = async data => {
+//     return await fetchData('/api/file/download','get',data)
+// } 

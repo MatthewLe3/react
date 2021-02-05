@@ -23,4 +23,7 @@ module.exports = app => {
 
   // 人员管理
   router.get('/api/personManage/table',controller.personManage.personManage)
+
+  // 文件
+  router.get('/api/file/list',controller.file.list)
 };
