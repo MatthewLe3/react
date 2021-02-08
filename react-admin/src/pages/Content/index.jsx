@@ -34,13 +34,23 @@ function Container(props) {
     },[])
 
      useEffect(() => {
-        window.addEventListener('resize',onResize);
-        setFoldStatus(size.width <= 800 ? true : false)
+        
+        
+
+        let status = React.$cookies.fetchCookie('userInfo')
+        if(!!!status){
+            props.history.push({
+                pathname: '/login'
+            });
+        }else{
+            window.addEventListener('resize',onResize);
+            setFoldStatus(size.width <= 800 ? true : false)
+        }
         return (()=>{
                 window.removeEventListener('resize',onResize)
             }
         )
-    }, [size,onResize])
+    }, [size,onResize,props.history])
 
     let selectedMenu = []
     const { pathname } = props.history.location

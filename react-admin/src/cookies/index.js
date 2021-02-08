@@ -6,7 +6,6 @@ export const saveCookie = (name, data, expiration=new Date(new Date().getTime() 
     cookie.save(name, data, {
         expires: expiration
     })
-    console.log('addd', name, data, expiration)
 }
 
 export const fetchCookie = (name) => {
