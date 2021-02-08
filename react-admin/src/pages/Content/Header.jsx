@@ -77,6 +77,7 @@ function Header(props) {
 
 
     const Layout = () => {
+        React.$cookies.removeCookie('userInfo')
         props.history.push({
             pathname: '/login'
         });

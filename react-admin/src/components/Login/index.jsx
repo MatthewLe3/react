@@ -15,7 +15,6 @@ import { withRouter } from 'react-router-dom'
 class LoginContent extends Component {
     render() {
         const { i18n } = this.props
-        console.log('user', this.props.user)
         const menu = (
             <Menu>
                 <Menu.Item>
@@ -32,7 +31,6 @@ class LoginContent extends Component {
                 </Menu.Item>
             </Menu>
         );
-
         return (
             <div className={styles.content}>
                 <div className={styles.header}>
@@ -88,6 +86,11 @@ class LoginContent extends Component {
         if ((username === 'admin' && password === 'admin') || (username === 'normal' && password === 'normal')) {
 
             username === 'admin' ? this.props.userHandle(ADMIN) : this.props.userHandle(NORMAL)
+
+            React.$cookies.saveCookie('userInfo',{
+                username,
+                password
+            })
 
             this.props.history.push({
                 pathname: '/page/home'

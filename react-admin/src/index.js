@@ -6,20 +6,26 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom'
 import store from './redux/store'
 import { Provider } from 'react-redux'
+import './cookies/index'
+import { saveCookie, fetchCookie, removeCookie } from './cookies/index';
 // import './mock/mock'
 
-// console.log(process.env.REACT_APP_MOCK_ENV,'nmmnmnmn')
-
+// cookies 挂载到全局
+React.$cookies = {
+	saveCookie,
+	fetchCookie,
+	removeCookie
+}
 
 ReactDOM.render(
-	
-		<Provider store={store}>
-			<Router>
+
+	<Provider store={store}>
+		<Router>
 			{/* <React.StrictMode> */}
-				<App />
+			<App />
 			{/* </React.StrictMode> */}
-			</Router>
-		</Provider>,
+		</Router>
+	</Provider>,
 	document.getElementById('root')
 );
 reportWebVitals();
